@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head><title>Survey summary</title></h:head>
+    <h:body>
+        <h3>Survey summary</h3>
+        Name: <h:outputText value="#{SurveyManager.name}" /><br />
+        Email: <h:outputText value="#{SurveyManager.email}" /><br />
+        Age: <h:outputText value="#{SurveyManager.age}" /><br />
+        Gender: <h:outputText value="#{SurveyManager.gender}" /><br />
+        Education: <h:outputText value="#{SurveyManager.education}" /><br />
+        Height: <h:outputText value="#{SurveyManager.height}" /><br />
+        Waist: <h:outputText value="#{SurveyManager.waist}" /><br />
+        <c:if test="#{SurveyManager.gender.ordinal() eq 0}">
+            Chest: <h:outputText value="#{SurveyManager.chest}" /><br />
+        </c:if>
+        <c:if test="#{SurveyManager.gender.ordinal() eq 1}">
+            Bust: <h:outputText value="#{SurveyManager.bust}" /><br />
+            Cup: <h:outputText value="#{SurveyManager.cup}" /><br />
+            Hips: <h:outputText value="#{SurveyManager.hips}" /><br />
+        </c:if>
+        How much you can spend monthly on clothes: <h:outputText value="#{SurveyManager.monthlyAmount}" /><br />
+        How often do you buy clothes: <h:outputText value="#{SurveyManager.buyPeriods}" /><br />
+        Preferred clothes colors:
+        <ui:repeat value="#{SurveyManager.clothesColors}" var="clothColor">
+            #{clothesColor},
+        </ui:repeat><br />
+        Preferred clothes types:
+        <ui:repeat value="#{SurveyManager.clothesTypes}" var="clothesType">
+            #{clothesType},
+        </ui:repeat>
+    </h:body>
+</html>

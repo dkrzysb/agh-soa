@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SOA_lab3_JSF">
+    <output-path>$PROJECT_DIR$/out/artifacts/SOA_lab3_JSF</output-path>
+    <root id="archive" name="SOA_lab3_JSF.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SOA_lab3_JSF" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Mojarra-2.2.1" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="SOA_lab3_JSF/web/Web" />
+    </root>
+  </artifact>
+</component>

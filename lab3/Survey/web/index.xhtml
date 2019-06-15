@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+   <h:head><title>Survey</title></h:head>
+   <h:body>
+      <div class="survey">
+         <c:if test="#{SurveyManager.page eq 0}">
+            <h:form>
+                     Name: <h:inputText value="#{SurveyManager.name}" required="true" label="Name"/><br />
+                     Email:
+                     <h:inputText value="#{SurveyManager.email}" required="true" label="Email" validatorMessage="Invalid email format">
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                     </h:inputText><br />
+                     Age:
+                     <h:inputText value="#{SurveyManager.age}" label="Age">
+                        <f:validateLongRange minimum="10" maximum="100" />
+                     </h:inputText><br />
+                     Gender:
+                     <h:selectOneMenu id="gender" value="#{SurveyManager.gender}">
+                        <f:selectItems value="#{SurveyManager.genders}" />
+                        <f:ajax execute="gender" render="additional" />
+                     </h:selectOneMenu><br />
+                     Education:
+                     <h:selectOneMenu value="#{SurveyManager.education}">
+                        <f:selectItem itemValue="basic" />
+                        <f:selectItem itemValue="lower secondary" />
+                        <f:selectItem itemValue="secondary" />
+                        <f:selectItem itemValue="vocational" />
+                        <f:selectItem itemValue="higher" />
+                     </h:selectOneMenu><br />
+                     <h:panelGroup id="additional">
+                        <c:if test="#{SurveyManager.gender eq null or SurveyManager.gender.ordinal() eq 0}">
+                           Height:
+                           <h:inputText value="#{SurveyManager.height}" label="Height">
+                              <f:validateLongRange minimum="165" maximum="200" />
+                           </h:inputText><br />
+                           Chest: <h:inputText value="#{SurveyManager.chest}" label="Chest"/><br />
+                           Waist: <h:inputText value="#{SurveyManager.waist}" label="Waist" /><br />
+                        </c:if>
+                        <c:if test="#{SurveyManager.gender.ordinal() eq 1}">
+                           Height:
+                           <h:inputText value="#{SurveyManager.height}" label="Height">
+                              <f:validateDoubleRange minimum="150" maximum="185" />
+                           </h:inputText><br />
+                           Bust: <h:inputText value="#{SurveyManager.bust}" label="Bust" /><br />
+                           Cup:
+                           <h:selectOneMenu value="#{SurveyManager.cup}">
+                              <f:selectItem itemValue="A" />
+                              <f:selectItem itemValue="B" />
+                              <f:selectItem itemValue="C" />
+                              <f:selectItem itemValue="D" />
+                              <f:selectItem itemValue="E" />
+                              <f:selectItem itemValue="F" />
+                           </h:selectOneMenu><br />
+                           Waist: <h:inputText value="#{SurveyManager.waist}" label="Waist" /><br />
+                           Hips: <h:inputText value="#{SurveyManager.hips}" label="Hips" /><br />
+                        </c:if>
+                        <h:commandButton value="Next" action="#{SurveyManager.next}" />
+                     </h:panelGroup>
+                  <h:messages style = "color:red;margin:8px;" />
+            </h:form>
+         </c:if>
+         <c:if test="#{SurveyManager.page eq 1}">
+            <h:form>
+               How much you can spend monthly on clothes:<br />
+               <h:selectOneListbox value="#{SurveyManager.monthlyAmount}">
+                  <f:selectItem itemValue="less than 100 zł" itemLabel="less than 100 zł" />
+                  <f:selectItem itemValue="100-500 zł" itemLabel="100-500 zł" />
+                  <f:selectItem itemValue="500-1000zł" itemLabel="500-1000zł" />
+                  <f:selectItem itemValue="more than 1000 zł" itemLabel="more than 1000 zł" />
+               </h:selectOneListbox><br />
+               How often do you buy clothes: <br />
+               <h:selectOneListbox value="#{SurveyManager.buyPeriods}">
+                  <f:selectItem itemValue="Daily" itemLabel="Daily" />
+                  <f:selectItem itemValue="Once a week" itemLabel="Once a week" />
+                  <f:selectItem itemValue="Once a month" itemLabel="Once a month" />
+                  <f:selectItem itemValue="Several times a year" itemLabel="Several times a year" />
+               </h:selectOneListbox><br />
+               Preferred clothes colors: <br />
+               <h:selectManyListbox value="#{SurveyManager.clothesColors}">
+                  <f:selectItem itemValue="Bright colors" itemLabel="Bright colors" />
+                  <f:selectItem itemValue="Toned grays" itemLabel="Toned in grays" />
+                  <f:selectItem itemValue="Black and white" itemLabel="Black and white" />
+                  <f:selectItem itemValue="Black" itemLabel="Black" />
+               </h:selectManyListbox><br />
+               Preferred clothes types: <br />
+               <c:if test="#{SurveyManager.gender.ordinal() eq 0}">
+                  <h:selectManyListbox value="#{SurveyManager.clothesTypes}">
+                     <f:selectItem itemValue="Trousers" itemLabel="Trousers" />
+                     <f:selectItem itemValue="Shorts" itemLabel="Shorts" />
+                     <f:selectItem itemValue="Suits" itemLabel="Suits" />
+                     <f:selectItem itemValue="Shirts" itemLabel="Shirts" />
+                     <f:selectItem itemValue="Ties" itemLabel="Ties" />
+                  </h:selectManyListbox><br />
+               </c:if>
+               <c:if test="#{SurveyManager.gender.ordinal() eq 1}">
+                  <h:selectManyListbox value="#{SurveyManager.clothesTypes}">
+                     <f:selectItem itemValue="Suits" itemLabel="Suits" />
+                     <f:selectItem itemValue="Blouses" itemLabel="Blouses" />
+                     <f:selectItem itemValue="Skirts" itemLabel="Skirts" />
+                     <f:selectItem itemValue="Trousers" itemLabel="Trousers" />
+                  </h:selectManyListbox><br />
+               </c:if>
+               <h:commandButton value="Previous" action="#{SurveyManager.previous}" /><br />
+               <h:commandButton value="Submit" action="result" />
+            </h:form>
+         </c:if>
+      </div>
+      <h:form>
+         <h:commandLink action="#{adsManager.addClick}">
+            <div class="ad" style="width: 100%; background-color: #000; color: #fff; margin-top: 10px; text-align: center; padding-top: 10px; padding-bottom: 10px;">
+               AD
+            </div>
+         </h:commandLink><br />
+      </h:form>
+      Ad clicks: <h:outputText value="#{adsManager.clicks}" />
+   </h:body>
+</html>
