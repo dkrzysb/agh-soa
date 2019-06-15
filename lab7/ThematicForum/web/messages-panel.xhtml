@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head><title>Messages panel</title></h:head>
+    <h:body>
+        <h3>Send message to all thematic list subscribers</h3>
+        <h:form>
+            Thematic list: <br />
+            <h:selectOneMenu value="#{ThematicsListManager.selectedThematicList}">
+                <f:selectItems value="#{ThematicsListManager.thematicsList}" var="thematicList"
+                               itemValue="#{thematicList.name}" itemLabel="#{thematicList.name}" />
+            </h:selectOneMenu><br />
+            Message:
+            <h:inputText value="#{MessagesManager.message}" /><br />
+            <h:commandButton value="Send" action="#{MessagesManager.sendMessageToAllSubscribers}"/>
+        </h:form>
+        <hr />
+        <h3>Send message to selected subscribers of thematic list</h3>
+        <h:form>
+            Thematic list: <br />
+            <h:selectOneMenu id="selectedThematicList" value="#{ThematicsListManager.selectedThematicList}">
+                <f:selectItem itemValue="null" itemLabel="" />
+                <f:selectItems value="#{ThematicsListManager.thematicsList}" var="thematicList"
+                               itemValue="#{thematicList.name}" itemLabel="#{thematicList.name}" />
+                <f:ajax execute="selectedThematicList" render="subscribers" />
+            </h:selectOneMenu><br />
+            <h:panelGroup id="subscribers">
+            Subscriber to send message: <br />
+                <h:selectManyCheckbox value="#{MessagesManager.subscribersToSendEmail}">
+                    <f:selectItems value="#{ThematicsListManager.subscribersList}" var="subscriber"
+                                   itemValue="#{subscriber.login}" itemLabel="#{subscriber.name} #{subscriber.surname}" />
+                </h:selectManyCheckbox>
+            </h:panelGroup><br />
+            Message:
+            <h:inputText value="#{MessagesManager.message}" /><br />
+            <h:commandButton value="Send" action="#{MessagesManager.sendMessageToSpecificSubscribers}" />
+        </h:form>
+    </h:body>
+</html>

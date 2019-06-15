@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link type="text/css" rel="stylesheet" href="books-table-style.css" />
+        <title>Checkout</title>
+    </h:head>
+    <h:body>
+        <h3>Order summary</h3>
+        <h:dataTable value="#{BooksManager.checkedBooks}" var="book"
+            styleClass="book-table"
+            headerClass="book-table-header"
+            rowClasses="book-table-even-row, book-table-odd-row">
+            <h:column>
+                <f:facet name="header">Title</f:facet>
+                #{book.title}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Author</f:facet>
+                #{book.author}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Pages</f:facet>
+                #{book.pages}
+            </h:column>
+        </h:dataTable><br />
+    </h:body>
+</html>

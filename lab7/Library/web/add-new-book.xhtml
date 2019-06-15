@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head><title>Add new book</title></h:head>
+    <h:body>
+        <h3>New book information</h3>
+        <h:form>
+            Title:<br /><h:inputText style="width: 300px;" value="#{BooksManager.book.title}" /><br />
+            Author:<br /><h:inputText style="width: 300px;" value="#{BooksManager.author.name}"/><br />
+            Pages:<br /><h:inputText value="#{BooksManager.book.pages}" /><br />
+            <h:commandButton value="Add" action="#{BooksManager.addNewBook}" />
+        </h:form>
+    </h:body>
+</html>

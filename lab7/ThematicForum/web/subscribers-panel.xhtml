@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head><title>Subscribers panel</title></h:head>
+    <h:body>
+        <h3>Subscribers panel</h3>
+        <h:form>
+            Thematic list: <br />
+            <h:selectOneMenu value="#{SubscribersManager.selectedThematicList}">
+                <f:selectItems value="#{ThematicsListManager.thematicsList}" var="thematicList"
+                               itemValue="#{thematicList.name}" itemLabel="#{thematicList.name}" />
+            </h:selectOneMenu><br />
+            <h:selectOneMenu value="#{SubscribersManager.selectedSubscriber}">
+                <f:selectItems value="#{SubscribersManager.subscribers}" var="subscriber"
+                               itemValue="#{subscriber.login}" itemLabel="#{subscriber.name} #{subscriber.surname}" />
+            </h:selectOneMenu><br />
+            <h:commandButton value="Subscribe" action="#{SubscribersManager.subscribe}" />
+        </h:form>
+    </h:body>
+</html>

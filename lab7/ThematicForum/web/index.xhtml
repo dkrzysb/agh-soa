@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Thematic Forum</title>
+        <link type="text/css" rel="stylesheet" href="table-style.css" />
+    </h:head>
+    <h:body>
+        <h3>Navigation</h3>
+        <h:form>
+            <h:commandButton value="Add thematic list" action="add-thematic-list" /><br />
+            <h:commandButton value="Subscribers panel" action="subscribers-panel" /><br />
+            <h:commandButton value="Messages panel" action="messages-panel" /><br />
+        </h:form>
+        <hr />
+        <h3>Thematic lists</h3>
+        <h:form>
+            <h:selectOneMenu id="selectedThematicList" value="#{ThematicsListManager.selectedThematicList}">
+                <f:selectItem itemValue="" itemLabel="" />
+                <f:selectItems value="#{ThematicsListManager.thematicsList}" var="thematicList"
+                               itemValue="#{thematicList.name}" itemLabel="#{thematicList.name}" />
+                <f:ajax execute="selectedThematicList" render="thematicListSubscribersTable" />
+            </h:selectOneMenu>
+        </h:form>
+        <h3>Subscribers</h3>
+        <h:dataTable id="thematicListSubscribersTable" value="#{ThematicsListManager.subscribersList}" var="subscriber"
+                     styleClass="table"
+                     headerClass="table-header"
+                     rowClasses="table-even-row, table-odd-row">
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                #{subscriber.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Surname</f:facet>
+                #{subscriber.surname}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                #{subscriber.emailAddress}
+            </h:column>
+        </h:dataTable>
+    </h:body>
+</html>

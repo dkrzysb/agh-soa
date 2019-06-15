@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link type="text/css" rel="stylesheet" href="books-table-style.css" />
+        <title>Administration</title>
+    </h:head>
+    <h:body>
+        <h3>Navigation</h3>
+        <h:form>
+            <h:commandButton value="Go to orders" action="order" />
+            <h:commandButton value="Go to books manager" action="index" />
+        </h:form>
+        <hr />
+        <h3>Books</h3>
+        <h:form id="books">
+            <h:dataTable value="#{BooksManager.books}" var="book"
+                         styleClass="book-table"
+                         headerClass="book-table-header"
+                         rowClasses="book-table-even-row, book-table-odd-row">
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    #{book.title}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Author</f:facet>
+                    #{book.author.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Pages</f:facet>
+                    #{book.pages}
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        <h3>Authors</h3>
+        <h:form id="authors">
+            <h:dataTable value="#{AuthorsManager.allAuthors}" var="author"
+                         styleClass="book-table"
+                         headerClass="book-table-header"
+                         rowClasses="book-table-even-row, book-table-odd-row">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{author.name}
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        <h3>Clients</h3>
+        <h:form id="clients">
+            <h:dataTable value="#{ClientsManager.clients}" var="client"
+                         styleClass="book-table"
+                         headerClass="book-table-header"
+                         rowClasses="book-table-even-row, book-table-odd-row">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{client.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Surname</f:facet>
+                    #{client.surname}
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        <h3>Orders</h3>
+        <h:form id="orders">
+            <h:dataTable value="#{OrdersManager.orders}" var="order"
+                         styleClass="book-table"
+                         headerClass="book-table-header"
+                         rowClasses="book-table-even-row, book-table-odd-row">
+                <h:column>
+                    <f:facet name="header">Client</f:facet>
+                    #{order.client.name} #{order.client.surname}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Book title</f:facet>
+                    #{order.book.title}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Author</f:facet>
+                    #{order.book.author.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Start date</f:facet>
+                    #{order.startDate}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">End date</f:facet>
+                    #{order.endDate}
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <hr />
+        <h3>Advanced search</h3>
+        <h:form>
+            Select result:<br />
+            <h:selectOneMenu value="#{FiltersManager.selectResult}">
+                <f:selectItem itemValue="client" itemLabel="Client"/>
+                <f:selectItem itemValue="author" itemLabel="Author"/>
+            </h:selectOneMenu><br />
+            Author:<br />
+            <h:selectOneMenu value="#{FiltersManager.authorId}">
+                <f:selectItem itemLabel="" itemValue="-1" />
+                <f:selectItems value="#{AuthorsManager.allAuthors}" var="author" itemLabel="#{author.name}" itemValue="#{author.id}" />
+            </h:selectOneMenu><br />
+            Book:<br />
+            <h:selectOneMenu value="#{FiltersManager.bookId}">
+                <f:selectItem itemLabel="" itemValue="-1" />
+                <f:selectItems value="#{BooksManager.books}" var="book" itemLabel="#{book.title}" itemValue="#{book.id}" />
+            </h:selectOneMenu><br />
+            Client:<br />
+            <h:selectOneMenu value="#{FiltersManager.clientId}">
+                <f:selectItem itemLabel="" itemValue="-1" />
+                <f:selectItems value="#{ClientsManager.clients}" var="client" itemLabel="#{client.name} #{client.surname}" itemValue="#{client.id}" />
+            </h:selectOneMenu><br />
+            Start date:<br />
+            <h:inputText value="#{FiltersManager.startDate}" converterMessage="Accepted date format is year-month-date">
+                <f:convertDateTime pattern="yyyy-MM-dd" />
+            </h:inputText><br />
+            End date:<br />
+            <h:inputText value="#{FiltersManager.endDate}" converterMessage="Accepted date format is year-month-date">
+                <f:convertDateTime pattern="yyyy-MM-dd" />
+            </h:inputText>
+            <h:commandButton value="Search" action="#{FiltersManager.filter}">
+                <f:ajax execute="@form" render="results" />
+            </h:commandButton>
+        </h:form>
+        <h4>Results</h4>
+        <h:dataTable id="results" value="#{FiltersManager.result}" var="result"
+                     styleClass="book-table"
+                     headerClass="book-table-header"
+                     rowClasses="book-table-even-row, book-table-odd-row">
+            <h:column>
+                #{result}
+            </h:column>
+        </h:dataTable>
+        <hr />
+    </h:body>
+</html>
