@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ejb3-server-war:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/ejb3_server_war_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ejb3-server-war" />
+          <element id="module-output" name="ejb3-server-api" />
+          <element id="module-output" name="ejb3serverimp" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+          <element id="library" level="project" name="Maven: javax:javaee-api:8.0" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.0" />
+          <element id="library" level="project" name="Maven: javax:javaee-api:8.0.1-b5" />
+        </element>
+      </element>
+      <element id="library" level="project" name="Maven: com.sun.faces:jsf-imp:2.1.7" />
+      <element id="javaee-facet-resources" facet="ejb3-server-war/web/Web" />
+    </root>
+  </artifact>
+</component>

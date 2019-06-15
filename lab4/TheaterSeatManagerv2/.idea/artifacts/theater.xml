@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="theater">
+    <output-path>$PROJECT_DIR$/out/artifacts/theater</output-path>
+    <root id="archive" name="theater.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="theater" />
+          <element id="module-output" name="seatmanagerapi" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax:javaee-api:8.0.1-b5" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="theater/web/Web" />
+    </root>
+  </artifact>
+</component>

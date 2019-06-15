@@ -1,0 +1,10 @@
+pl\agh\kis\soa\server\Seat.class
+pl\agh\kis\soa\server\SeatAvailabilityBean.class
+pl\agh\kis\soa\server\ISeatAvailabilityBean.class
+pl\agh\kis\soa\server\ISeatManagerBean.class
+pl\agh\kis\soa\server\SeatPurchaseBean.class
+pl\agh\kis\soa\server\User.class
+pl\agh\kis\soa\server\ISeatPurchaseBean.class
+pl\agh\kis\soa\server\IUserBean.class
+pl\agh\kis\soa\server\SeatManagerBean.class
+pl\agh\kis\soa\server\UserBean.class
