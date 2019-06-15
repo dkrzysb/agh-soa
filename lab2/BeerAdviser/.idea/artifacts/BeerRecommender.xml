@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="BeerRecommender">
+    <output-path>$PROJECT_DIR$/out/artifacts/BeerRecommender</output-path>
+    <root id="archive" name="BeerRecommender.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="beerAdviser" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="beerAdviser/web/Web" />
+    </root>
+  </artifact>
+</component>

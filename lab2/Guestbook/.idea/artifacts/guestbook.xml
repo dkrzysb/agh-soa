@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="guestbook">
+    <output-path>$PROJECT_DIR$/out/artifacts/guestbook</output-path>
+    <root id="archive" name="guestbook.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="guestbook" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="guestbook/web/Web" />
+    </root>
+  </artifact>
+</component>

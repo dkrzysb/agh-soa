@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <welcome-file-list>
+        <welcome-file>View/form.html</welcome-file>
+    </welcome-file-list>
+
+    <filter>
+        <filter-name>AgeFilter</filter-name>
+        <filter-class>pl.agh.kis.soa.beeradviser.controller.AgeFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AgeFilter</filter-name>
+        <url-pattern>/recommendedBeers</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>BeerRecommender</servlet-name>
+        <servlet-class>pl.agh.kis.soa.beeradviser.controller.BeerRecommender</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BeerRecommender</servlet-name>
+        <url-pattern>/recommendedBeers</url-pattern>
+    </servlet-mapping>
+</web-app>
