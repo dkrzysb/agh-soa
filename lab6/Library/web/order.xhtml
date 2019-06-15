@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link type="text/css" rel="stylesheet" href="books-table-style.css" />
+        <title>Order manager</title>
+    </h:head>
+    <h:body>
+        <h3>Navigation</h3>
+        <h:form>
+            <h:commandButton value="Go to administration" action="administration" />
+            <h:commandButton value="Go to books manager" action="index" />
+        </h:form>
+        <hr />
+        <h3>Filters</h3>
+        <h:form>
+            Title:<br />
+            <h:inputText id="title" value="#{BooksManager.titleFilter}" style="width: 300px;">
+                <f:ajax render="booksDT" />
+            </h:inputText><br />
+            Author:<br />
+            <h:inputText id="author" value="#{BooksManager.authorFilter}" style="width: 300px;">
+                <f:ajax render="booksDT" />
+            </h:inputText>
+            <br />
+            Pages:<br />
+            <h:inputText id="pages" value="#{BooksManager.pagesFilter}" style="width: 300px;">
+                <f:ajax render="booksDT" />
+            </h:inputText>
+            <br />
+            Columns to display:<br />
+            <h:selectManyCheckbox id="columnsToDisplay" value="#{BooksManager.columnsToDisplay}" style="width: 300px;">
+                <f:selectItems value="#{BooksManager.columns}" />
+                <f:ajax render="booksDT" />
+            </h:selectManyCheckbox><br />
+            <hr />
+            <h3>Books</h3>
+            <h:dataTable value="#{BooksManager.books}" var="book" id="booksDT"
+                         styleClass="book-table"
+                         headerClass="book-table-header"
+                         rowClasses="book-table-even-row, book-table-odd-row">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{book.id}
+                </h:column>
+                <h:column rendered="#{BooksManager.shouldDisplayTitle}">
+                    <f:facet name="header">Title</f:facet>
+                    #{book.title}
+                </h:column>
+                <h:column rendered="#{BooksManager.shouldDisplayAuthor}">
+                    <f:facet name="header">Author</f:facet>
+                    #{book.author.name}
+                </h:column>
+                <h:column rendered="#{BooksManager.shouldDisplayPages}">
+                    <f:facet name="header">Pages</f:facet>
+                    #{book.pages}
+                </h:column>
+                <h:column>
+                    <h:commandButton value="Select to order" action="#{OrdersManager.setOrderedBook(book)}" />
+                </h:column>
+            </h:dataTable>
+            Start date: <br />
+            <h:inputText value="#{OrdersManager.order.startDate}" converterMessage="Accepted date format is year-month-day">
+                <f:convertDateTime pattern="yyyy-MM-dd"/>
+            </h:inputText><br />
+            End date: <br />
+            <h:inputText value="#{OrdersManager.order.endDate}" converterMessage="Accepted date format is year-month-date">
+                <f:convertDateTime pattern="yyyy-MM-dd" />
+            </h:inputText><br />
+            Client: <br />
+            <h:selectOneMenu value="#{OrdersManager.clientId}">
+                <f:selectItems value="#{ClientsManager.clients}" var="client" itemLabel="#{client.name} #{client.surname}" itemValue="#{client.id}" />
+            </h:selectOneMenu><br />
+            <h:commandButton value="Order" action="#{OrdersManager.order}" /><br />
+            <h:messages style="color:red; margin:8px;" />
+            <h:outputText value="#{OrdersManager.messages}" />
+        </h:form>
+        <hr />
+        <h3>Clients</h3>
+        <h:form>
+            <h:panelGroup id="clients">
+                <h:dataTable value="#{ClientsManager.clients}" var="client"
+                             styleClass="book-table"
+                             headerClass="book-table-header"
+                             rowClasses="book-table-even-row, book-table-odd-row">
+                    <h:column>
+                        <f:facet name="header">Client</f:facet>
+                        #{client.name} #{client.surname}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Books</f:facet>
+                        <h:selectOneMenu value="#{OrdersManager.bookToReturnId}" id="bookId">
+                            <f:selectItems value="#{OrdersManager.getClientActiveOrders(client.id)}" var="order" itemLabel="#{order.book.title}" itemValue="#{order.book.id}"/>
+                        </h:selectOneMenu>
+                    </h:column>
+                    <h:column>
+                        <h:commandButton value="Return book" action="#{OrdersManager.returnBook(client.id)}">
+                            <f:ajax execute="bookId" render="@form" />
+                        </h:commandButton>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>

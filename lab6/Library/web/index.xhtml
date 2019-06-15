@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <h:head>
+      <link type="text/css" rel="stylesheet" href="books-table-style.css" />
+      <title>BooksManager</title>
+   </h:head>
+   <h:body>
+      <h3>Navigation</h3>
+      <h:form>
+         <h:commandButton value="Go to orders" action="order" />
+         <h:commandButton value="Go to administration" action="administration" />
+      </h:form>
+      <hr />
+      <h3>Filters</h3>
+      <h:form>
+         Title:<br />
+         <h:inputText id="title" value="#{BooksManager.titleFilter}" style="width: 300px;">
+            <f:ajax render="booksDT" />
+         </h:inputText><br />
+         Author:<br />
+         <h:inputText id="author" value="#{BooksManager.authorFilter}" style="width: 300px;">
+            <f:ajax render="booksDT" />
+         </h:inputText>
+         <br />
+         Pages:<br />
+         <h:inputText id="pages" value="#{BooksManager.pagesFilter}" style="width: 300px;">
+            <f:ajax render="booksDT" />
+         </h:inputText>
+         <br />
+         Columns to display:<br />
+         <h:selectManyCheckbox id="columnsToDisplay" value="#{BooksManager.columnsToDisplay}" style="width: 300px;">
+            <f:selectItems value="#{BooksManager.columns}" />
+            <f:ajax render="booksDT" />
+         </h:selectManyCheckbox><br />
+         <hr />
+         <h:dataTable value="#{BooksManager.books}" var="book" id="booksDT"
+                      styleClass="book-table"
+                      headerClass="book-table-header"
+                      rowClasses="book-table-even-row, book-table-odd-row">
+            <h:column>
+               <f:facet name="header">ID</f:facet>
+               #{book.id}
+            </h:column>
+            <h:column rendered="#{BooksManager.shouldDisplayTitle}">
+               <f:facet name="header">Title</f:facet>
+               #{book.title}
+            </h:column>
+            <h:column rendered="#{BooksManager.shouldDisplayAuthor}">
+               <f:facet name="header">Author</f:facet>
+               #{book.author.name}
+            </h:column>
+            <h:column rendered="#{BooksManager.shouldDisplayPages}">
+               <f:facet name="header">Pages</f:facet>
+               #{book.pages}
+            </h:column>
+            <h:column>
+               <h:commandButton value="Remove" action="#{BooksManager.removeBook(book.id)}" />
+            </h:column>
+            <h:column>
+               <h:commandButton value="Modify" action="#{BooksManager.modifyBook(book.id)}" />
+            </h:column>
+         </h:dataTable>
+      </h:form>
+      <h:form>
+         <h:commandButton value="Add new book" action="add-new-book" />
+      </h:form>
+   </h:body>
+</html>
