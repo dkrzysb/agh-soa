@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <h:head>
+      <link type="text/css" rel="stylesheet" href="books-table-style.css" />
+      <title>BooksManager</title>
+   </h:head>
+   <h:body>
+      <h:form>
+         <h3>Filters</h3>
+         Title:<br />
+         <h:inputText id="title" value="#{BooksManager.titleFilter}" style="width: 300px;" >
+            <f:ajax render="booksDT" />
+         </h:inputText><br />
+         Author:<br />
+         <h:inputText id="author" value="#{BooksManager.authorFilter}" style="width: 300px;">
+            <f:ajax render="booksDT" />
+         </h:inputText>
+         <br />
+         Type:<br />
+         <h:selectOneMenu id="type" value="#{BooksManager.typeFilter}" style="width: 300px;">
+            <f:selectItems value="#{BooksManager.typeFilters}" />
+            <f:ajax render="booksDT" />
+         </h:selectOneMenu><br />
+         From price:<br />
+         <h:inputText id="fromPrice" value="#{BooksManager.fromPriceFilter}" style="width: 300px;">
+            <f:ajax render="booksDT" />
+         </h:inputText>
+         <br />
+         To price:<br />
+         <h:inputText id="toPrice" value="#{BooksManager.toPriceFilter}" style="width: 300px;">
+            <f:ajax render="booksDT" />
+         </h:inputText>
+         <br />
+         Currency:<br />
+         <h:inputText id="currency" value="#{BooksManager.currencyFilter}" style="width: 300px;">
+            <f:ajax render="booksDT" />
+         </h:inputText>
+         <br />
+         Pages:<br />
+         <h:inputText id="pages" value="#{BooksManager.pagesFilter}" style="width: 300px;">
+            <f:ajax render="booksDT" />
+         </h:inputText>
+         <br />
+         Columns to display:<br />
+         <h:selectManyCheckbox id="columnsToDisplay" value="#{BooksManager.columnsToDisplay}" style="width: 300px;">
+            <f:selectItems value="#{BooksManager.columns}" />
+            <f:ajax render="booksDT" />
+         </h:selectManyCheckbox><br />
+         Currency display:<br />
+         <h:selectOneMenu id="currencyDisplay" value="#{BooksManager.currencyDisplay}" style="width: 300px;">
+            <f:selectItem itemValue="Original" />
+            <f:selectItem itemValue="PLN" />
+            <f:ajax render="booksDT" />
+         </h:selectOneMenu><br />
+         <hr />
+         <h:dataTable value="#{BooksManager.books}" var="book" id="booksDT"
+            styleClass="book-table"
+            headerClass="book-table-header"
+            rowClasses="book-table-even-row, book-table-odd-row">
+            <h:column rendered="#{BooksManager.shouldDisplayTitle}">
+               <f:facet name="header">Title</f:facet>
+               #{book.title}
+            </h:column>
+            <h:column rendered="#{BooksManager.shouldDisplayAuthor}">
+               <f:facet name="header">Author</f:facet>
+               #{book.author}
+            </h:column>
+            <h:column rendered="#{BooksManager.shouldDisplayType}">
+               <f:facet name="header">Type</f:facet>
+               #{book.type.toString()}
+            </h:column>
+            <h:column rendered="#{BooksManager.shouldDisplayPrice}">
+               <f:facet name="header">Price</f:facet>
+               #{book.price}
+            </h:column>
+            <h:column rendered="#{BooksManager.shouldDisplayCurrency}">
+               <f:facet name="header">Currency</f:facet>
+               #{book.currency}
+            </h:column>
+            <h:column rendered="#{BooksManager.shouldDisplayPages}">
+               <f:facet name="header">Pages</f:facet>
+               #{book.pages}
+            </h:column>
+            <h:column>
+               <f:facet name="header">Order</f:facet>
+               <h:selectBooleanCheckbox value="#{BooksManager.orderCheckboxes[book.id]}"/>
+            </h:column>
+            <h:column>
+               <h:commandButton value="Remove" action="#{BooksManager.removeBook(book.id)}" />
+            </h:column>
+            <h:column>
+               <h:commandButton value="Modify" action="#{BooksManager.modifyBook(book.id)}" />
+            </h:column>
+         </h:dataTable>
+         <h:commandButton value="Order" action="#{BooksManager.order}" />
+      </h:form>
+      <h:form>
+         <h:commandButton value="Add new book" action="add-new-book" />
+      </h:form>
+   </h:body>
+</html>
